@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -8,3 +7,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id               String    @id @default(uuid())
+  fullName         String
+  email            String    @unique
+  password         String
+  confirm_password String
+  company_name     String    @unique
+  otp              Int
+  phone_number     Int?      @unique
+  image            String?
+  createdAt        DateTime  @default(now())
+  website          website[]
+}
+
+model Region {
+  id          String        @id @default(uuid())
+  region_name String
+  tick        WebsiteTick[]
+}
+
+model website {
+  id          String        @id @default(uuid())
+  site_name   String        @unique
+  url         String        @unique
+  time_added  DateTime      @default(now())
+  user        User          @relation(fields: [user_id], references: [id])
+  user_id     String
+  WebsiteTick WebsiteTick[]
+}
+
+model WebsiteTick {
+  id               String        @id @default(uuid())
+  response_time_ms Int
+  status           WebsiteStatus
+  region           Region        @relation(fields: [region_id], references: [id])
+  website          website       @relation(fields: [website_id], references: [id])
+  region_id        String
+  website_id       String
+}
+
+enum WebsiteStatus {
+  Up
+  Down
+  Unknown
+}
