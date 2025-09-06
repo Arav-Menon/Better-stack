@@ -1,1 +1,3 @@
-console.log("Hello via Bun!");
+import { PrismaClient } from "@prisma/client";
+
+export const db = new PrismaClient();

@@ -8,17 +8,16 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(uuid())
-  fullName         String
-  email            String    @unique
-  password         String
-  confirm_password String
-  company_name     String    @unique
-  otp              Int
-  phone_number     Int?      @unique
-  image            String?
-  createdAt        DateTime  @default(now())
-  website          website[]
+  id              String    @id @default(uuid())
+  fullName        String
+  email           String    @unique
+  password        String
+  confirmPassword String
+  companyName     String    @unique
+  phoneNumber     String?   @unique
+  image           String?
+  createdAt       DateTime  @default(now())
+  website         website[]
 }
 
 model Region {

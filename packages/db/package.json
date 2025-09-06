@@ -1,10 +1,18 @@
 {
-  "name": "db",
+  "name": "@repo/db",
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "exports": {
+    "./db": "./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
+  },
+  "script": {
+    "studio": "bunx prisma studio",
+    "migrate": "bunx prisma migrate dev",
+    "generate": "bunx prisma generate"
   },
   "peerDependencies": {
     "typescript": "^5"
