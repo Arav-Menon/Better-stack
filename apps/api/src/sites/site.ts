@@ -8,7 +8,7 @@ siteRouter.get("/my-site", middleware, async (req: any, res: any) => {
   const user_id = req.id;
 
   try {
-    const findSites = await db.website.findUnique({ where: user_id });
+    const findSites = await db.website.findUnique({ where: { id: user_id } });
 
     return res.status(200).json({
       findSites,
