@@ -9,3 +9,8 @@ export const authSchema = z.object({
   otp: z.string().min(4).max(4),
   phoneNumber: z.string().min(10).max(10),
 });
+
+export const addSite = z.object({
+  site_name: z.string(),
+  url: z.string().startsWith("https://"),
+});

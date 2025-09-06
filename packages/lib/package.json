@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./authOptions": "./auth.ts"
+    "./authOptions": "./auth.ts",
+    "./addSite" : "./validations.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
