@@ -1,0 +1,24 @@
+{
+  "name": "@repo/lib",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./authOptions": "./auth.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@repo/db": "*",
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "bcrypt": "^6.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "next-auth": "^4.24.11",
+    "zod": "^4.1.5"
+  }
+}
