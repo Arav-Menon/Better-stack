@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5",
+    "@repo/lib": "*",
+    "@repo/db": "*"
+  },
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "prisma": "^6.15.0"
+  }
+}
