@@ -11,11 +11,10 @@ siteRouter.post("/add-site", authMiddleware, async (req: any, res: any) => {
   try {
     const result = addSite.safeParse(req.body);
 
-    if (!result.success) return null;
+    if (!result.success) return res.status(400).json({ error: result.error });
 
     const { site_name, url } = result.data;
-    //@ts-ignore
-    const existSite = await db.website.findUnique({ where: url });
+    const existSite = await db.website.findUnique({ where: { id: url } });
 
     if (existSite) {
       return res.status(403).json({
@@ -25,8 +24,8 @@ siteRouter.post("/add-site", authMiddleware, async (req: any, res: any) => {
 
     const createSite = await db.website.create({
       data: {
-        site_name,
-        url,
+        site_name: site_name,
+        url: url,
         user: {
           connect: {
             id: user_id,
