@@ -1,11 +1,11 @@
 import express from "express";
 import { addSite } from "@repo/lib/addSite";
 import { db } from "@repo/db/db";
-import { middleware } from "../../middleware";
+import { authMiddleware } from "../../middleware";
 
 export const siteRouter = express.Router();
 
-siteRouter.post("/add-site", middleware, async (req: any, res: any) => {
+siteRouter.post("/add-site", authMiddleware, async (req: any, res: any) => {
   const user_id = req.id;
 
   try {

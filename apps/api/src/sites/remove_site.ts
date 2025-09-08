@@ -1,12 +1,12 @@
 import express, { Router } from "express";
-import { middleware } from "../../middleware";
+import { authMiddleware } from "../../middleware";
 import { db } from "@repo/db/db";
 
 const siteRouter = express.Router();
 
 siteRouter.delete(
   "/remove/:websiteId",
-  middleware,
+  authMiddleware,
   async (req: any, res: any) => {
     const user_id = req.id;
     const websiteId = req.websiteId;
