@@ -1,26 +1,31 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const middleware = (req: Request, res: Response, next: NextFunction) => {
+const JWT_SECRET = "not_original_token";
+
+console.log(JWT_SECRET);
+
+export function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    // Cookie se token nikalna (NextAuth ke liye)
-    const token =
-      req.cookies["next-auth.session-token"] ||
-      req.cookies["__Secure-next-auth.session-token"];
+    const token = req.headers["authorization"];
 
     if (!token) {
-      return res.status(401).json({ error: "Token missing in cookies" });
+      return res.status(401).json({ error: "No token, authorization denied" });
     }
 
-    // Verify with NEXTAUTH_SECRET
-    const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!);
+    const decoded = jwt.verify(token, JWT_SECRET) as {
+      id: string;
+      email: string;
+    };
 
-    // Attach user data to req
-    (req as any).user = decoded;
-
+    req.id = decoded.id;
     next();
-  } catch (error) {
-    console.error(error);
-    return res.status(403).json({ error: "Invalid or expired token" });
+  } catch (err) {
+    console.log(err);
+    return res.status(401).json({ error: "Invalid or expired token" });
   }
-};
+}
