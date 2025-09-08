@@ -10,28 +10,11 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        fullName: { label: "full name", type: "text", placeholder: "jsmith" },
         email: { label: "Email", type: "email", placeholder: "Email" },
         password: {
           label: "Password",
           type: "password",
           placeholder: "Enter Password",
-        },
-        confirmPassword: {
-          label: "Confirm password",
-          type: "password",
-          placeholder: "confirm password",
-        },
-        companyName: {
-          label: "Company name",
-          type: "text",
-          placeholder: "Enter Company name",
-        },
-        otp: { label: "Otp", type: "text", placeholder: "Enter otp" },
-        phoneNumber: {
-          label: "Enter phone number ",
-          type: "text",
-          placeholder: "Enter phone number",
         },
       },
       async authorize(credentials, req) {
@@ -96,6 +79,18 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token", // <- ye hi naam Express me read karna hoga
+      options: {
+        httpOnly: true,
+        sameSite: "none", // cross-origin ke liye zaroori
+        secure: process.env.NODE_ENV === "production", // prod me true
+        path: "/",
+      },
+    },
+  },
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -104,7 +99,6 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-
     async session({ session, token }) {
       if (token) {
         session.user = {
