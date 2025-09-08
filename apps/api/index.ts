@@ -22,6 +22,9 @@ app.use("/user", remove_user_router);
 
 // site router
 app.use("/site", siteRouter);
+app.use("/site", siteRouter);
+app.use("/site", siteRouter);
+app.use("/site", siteRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is started on PORT ${PORT}`);

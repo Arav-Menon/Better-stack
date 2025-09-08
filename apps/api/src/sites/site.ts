@@ -1,10 +1,10 @@
 import express, { Router } from "express";
-import { middleware } from "../../middleware";
+import { authMiddleware } from "../../middleware";
 import { db } from "@repo/db/db";
 
 const siteRouter = express.Router();
 
-siteRouter.get("/my-site", middleware, async (req: any, res: any) => {
+siteRouter.get("/my-site", authMiddleware, async (req: any, res: any) => {
   const user_id = req.id;
 
   try {
