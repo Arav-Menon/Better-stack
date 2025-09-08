@@ -19,14 +19,15 @@ update_site_router.put(
       if (!result.success)
         return res.status(409).json({ message: "validation problem" });
 
-      const existSite = await db.website.findUnique({ where: websiteId });
+      const existSite = await db.website.findUnique({
+        where: { id: websiteId },
+      });
 
       if (!existSite)
         return res.status(404).json({ message: "Website could not found" });
 
       const updateSite = await db.website.update({
-        //@ts-ignore
-        where: { websiteId },
+        where: { id: websiteId },
         data: {
           site_name: body.site_name,
           url: body.url,
