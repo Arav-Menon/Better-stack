@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import { authMiddleware } from "../../middleware";
 import { db } from "@repo/db/db";
 
-const siteRouter = express.Router();
+export const siteRouter = express.Router();
 
 siteRouter.get("/my-site", authMiddleware, async (req: any, res: any) => {
   const user_id = req.id;

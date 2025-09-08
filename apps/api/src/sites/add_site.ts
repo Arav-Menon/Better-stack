@@ -3,9 +3,9 @@ import { addSite } from "@repo/lib/addSite";
 import { db } from "@repo/db/db";
 import { authMiddleware } from "../../middleware";
 
-export const siteRouter = express.Router();
+export const add_site_router = express.Router();
 
-siteRouter.post("/add-site", authMiddleware, async (req: any, res: any) => {
+add_site_router.post("/add-site", authMiddleware, async (req: any, res: any) => {
   const user_id = req.id;
 
   try {

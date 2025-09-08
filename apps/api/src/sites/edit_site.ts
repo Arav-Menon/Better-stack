@@ -3,9 +3,9 @@ import { authMiddleware } from "../../middleware";
 import { db } from "@repo/db/db";
 import { addSite } from "@repo/lib/addSite";
 
-const siteRouter = express.Router();
+export const update_site_router = express.Router();
 
-siteRouter.put(
+update_site_router.put(
   "/edit/:websiteId",
   authMiddleware,
   async (req: any, res: any) => {

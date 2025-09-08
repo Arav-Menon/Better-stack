@@ -2,9 +2,9 @@ import express, { Router } from "express";
 import { authMiddleware } from "../../middleware";
 import { db } from "@repo/db/db";
 
-const siteRouter = express.Router();
+export const remove_site_router = express.Router();
 
-siteRouter.delete(
+remove_site_router.delete(
   "/remove/:websiteId",
   authMiddleware,
   async (req: any, res: any) => {
