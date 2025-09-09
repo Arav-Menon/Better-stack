@@ -65,16 +65,20 @@ authRouter.post("/auth", async (req, res) => {
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      user = await db.user.create({
-        data: {
-          fullName,
-          email,
-          password: hashedPassword,
-          confirmPassword: hashedPassword, // 👈 avoid storing plain confirmPassword in real apps
-          companyName,
-          phoneNumber,
-        },
-      });
+      try {
+        user = await db.user.create({
+          data: {
+            fullName,
+            email,
+            password: hashedPassword,
+            confirmPassword: hashedPassword,
+            companyName,
+            phoneNumber,
+          },
+        });
+      } catch (err) {
+        return res.status(409).json({ error: err });
+      }
     }
 
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
