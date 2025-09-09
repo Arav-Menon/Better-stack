@@ -8,14 +8,16 @@ export const update_user_router = Router();
 
 update_user_router.put("/update-account", authMiddleware, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = req.id;
 
     const parseResult = authSchema.safeParse(req.body);
+    console.log(parseResult);
     if (!parseResult.success) {
       return res.status(400).json({ error: parseResult.error });
     }
 
     const data = parseResult.data;
+    console.log(data);
 
     if (data.password && data.confirmPassword) {
       if (data.password !== data.confirmPassword) {

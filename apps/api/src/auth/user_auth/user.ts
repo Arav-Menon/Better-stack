@@ -6,7 +6,7 @@ export const userRouter = Router();
 
 userRouter.get("/profile", authMiddleware, async (req, res) => {
   try {
-    const userId = (req as any).user.id;
+    const userId = req.id;
 
     const user = await db.user.findUnique({
       where: { id: userId },

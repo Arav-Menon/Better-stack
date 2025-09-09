@@ -1,29 +1,28 @@
 import { Router } from "express";
 import { authMiddleware } from "../../../middleware";
 import { db } from "@repo/db/db";
+import { use } from "react";
 
 export const remove_user_router = Router();
 
 remove_user_router.delete(
-  "/remove-account/:userId/:webisteId",
+  "/remove-account",
   authMiddleware,
   async (req, res) => {
     try {
-      const userId = (req as any).user.id;
-      const websiteId = req.params.webisteId;
+      const userId = req.id!;
 
-      const user = await db.user.delete({
+      const findUserInWebsite = await db.website.deleteMany({
         where: { id: userId },
       });
-      const userAddedWebsite = await db.website.delete({
-        where: {
-          user_id: userId,
-          id: websiteId,
-        },
+
+      const deleteUser = await db.user.delete({
+        where: { id: userId },
       });
 
-      res.json({ userAddedWebsite, user });
+      return res.status(200).json({ findUserInWebsite, deleteUser });
     } catch (err) {
+      console.log(err);
       res.status(500).json({ error: "Server error" });
     }
   }
