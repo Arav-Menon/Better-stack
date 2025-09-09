@@ -34,6 +34,7 @@ model website {
   user        User          @relation(fields: [user_id], references: [id])
   user_id     String
   WebsiteTick WebsiteTick[]
+  createdAt   DateTime      @default(now())
 }
 
 model WebsiteTick {
@@ -44,6 +45,7 @@ model WebsiteTick {
   website          website       @relation(fields: [website_id], references: [id])
   region_id        String
   website_id       String
+  createdAt        DateTime      @default(now())
 }
 
 enum WebsiteStatus {
