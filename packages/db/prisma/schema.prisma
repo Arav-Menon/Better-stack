@@ -14,7 +14,7 @@ model User {
   password        String
   confirmPassword String
   companyName     String    @unique
-  phoneNumber     String?   @unique
+  phoneNumber     String?   
   image           String?
   createdAt       DateTime  @default(now())
   website         website[]
