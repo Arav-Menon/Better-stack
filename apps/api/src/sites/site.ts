@@ -14,7 +14,9 @@ siteRouter.get(
     try {
       const findSites = await db.website.findFirst({
         where: {
-          user: user_id,
+          user: {
+            id: user_id,
+          },
           id: website_id,
         },
         include: {
