@@ -9,7 +9,7 @@ remove_site_router.delete(
   authMiddleware,
   async (req: any, res: any) => {
     const user_id = req.id;
-    const websiteId = req.websiteId;
+    const websiteId = req.params.websiteId;
 
     try {
       const findUser = await db.user.findUnique({ where: { id: user_id } });
