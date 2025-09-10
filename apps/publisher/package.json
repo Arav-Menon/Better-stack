@@ -1,0 +1,16 @@
+{
+  "name": "publisher",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "redis": "^5.8.2",
+    "@repo/db" : "*"
+  }
+}
