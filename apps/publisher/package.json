@@ -10,7 +10,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "redis": "^5.8.2",
-    "@repo/db" : "*"
+    "@repo/db": "*",
+    "@repo/redis-streams": "*"
   }
 }
