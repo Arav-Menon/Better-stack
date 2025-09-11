@@ -13,7 +13,7 @@ async function main() {
 
   await xAddBulk(
     websites.map((w) => ({
-      url: w.url,
+      url: w.url,   
       id: w.id,
     }))
   );
