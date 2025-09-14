@@ -1,5 +1,5 @@
+import { xAddBulk } from "@repo/redis-streamline/client";
 import { db } from "@repo/db/db";
-import { xAddBulk } from "@repo/redis-streams/redis_streams";
 
 async function main() {
   let websites = await db.website.findMany({
@@ -11,9 +11,10 @@ async function main() {
 
   console.log(websites.length);
 
+  //@ts-ignore
   await xAddBulk(
-    websites.map((w) => ({
-      url: w.url,   
+    websites.map((w: any) => ({
+      url: w.url,
       id: w.id,
     }))
   );

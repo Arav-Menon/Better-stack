@@ -3,14 +3,14 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "dependencies": {
+    "@repo/redis-streamline" : "*",
+    "@repo/db" : "*"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "@repo/db": "*",
-    "@repo/redis-streams": "*"
   }
 }
