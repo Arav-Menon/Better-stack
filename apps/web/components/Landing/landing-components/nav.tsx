@@ -46,7 +46,7 @@ export function Nav() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost">Sign In</Button>
+            <Link href={"/signin"} >sign In</Link>
             <Button variant="default">Start Free Trial</Button>
           </div>
 
