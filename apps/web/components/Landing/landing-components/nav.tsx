@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import CustomLink from "@/components/ui/link";
 
 export function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,12 +12,12 @@ export function Nav() {
     <header className="sticky top-0 z-50 backdrop-blur-md' ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-2">
+          <Link href={"/"} className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <div className="w-4 h-4 bg-primary-foreground rounded-full animate-pulse-green"></div>
             </div>
             <span className="text-xl font-bold text-[#fff] ">UptimeWatch</span>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link
@@ -46,8 +47,10 @@ export function Nav() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link href={"/signin"} >sign In</Link>
-            <Button variant="default">Start Free Trial</Button>
+            <CustomLink href={"/signin"} variant="ghost">
+              Sign In
+            </CustomLink>
+            <CustomLink href="/signup" variant="default">Start Free Trial</CustomLink>
           </div>
 
           <button
