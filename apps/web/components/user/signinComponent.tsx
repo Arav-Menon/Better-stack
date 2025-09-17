@@ -5,7 +5,7 @@ import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import CustomInput from "../ui/input";
+import CustomInput from "../ui/inputForAuth";
 import Loading from "../loading";
 import CustomLink from "../ui/link";
 import { GithubIcon, GoogleIcon } from "../svg";

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import CustomLink from "../ui/link";
 import Loading from "../loading";
-import CustomInput from "../ui/input";
+import CustomInput from "../ui/inputForAuth";
 import { GithubIcon, GoogleIcon } from "../svg";
 
 export default function SignUpPage() {
