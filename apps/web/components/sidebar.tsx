@@ -29,7 +29,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Websites", href: "/dashboard/websites", icon: Globe },
+  { name: "Websites", href: "/dashboard/add-website", icon: Globe },
   { name: "Monitoring", href: "/dashboard/monitoring", icon: Activity },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   {
@@ -37,7 +37,7 @@ const navItems: NavItem[] = [
     href: "/dashboard/notifications",
     icon: Bell,
   },
-  { name: "Profile", href: "/profile", icon: User },
+  { name: "Profile", href: "/dashboard/profile", icon: User },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
@@ -85,7 +85,7 @@ export function Sidebar() {
           </div>
 
           {/* User Profile */}
-          <div className="px-6 py-4 border-b border-gray-800">
+          {/* <div className="px-6 py-4 border-b border-gray-800">
             <div className="flex items-center space-x-3">
               <img
                 src="/professional-avatar.png"
@@ -99,7 +99,7 @@ export function Sidebar() {
                 <p className="text-xs text-gray-400 truncate">Pro Plan</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
