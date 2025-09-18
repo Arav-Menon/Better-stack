@@ -1,9 +1,9 @@
-import { Sidebar } from "@/components/sidebar";
+import Overview from "@/components/dashbaordComponent/overview";
 
 export default function Dashboard() {
   return (
     <>
-      <Sidebar />
+      <Overview />
     </>
   );
 }
