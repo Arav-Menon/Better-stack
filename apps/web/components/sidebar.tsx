@@ -30,7 +30,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "Websites", href: "/dashboard/add-website", icon: Globe },
-  { name: "Monitoring", href: "/dashboard/monitoring", icon: Activity },
+  { name: "Monitoring", href: "/dashboard/monitor", icon: Activity },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   {
     name: "Notifications",
