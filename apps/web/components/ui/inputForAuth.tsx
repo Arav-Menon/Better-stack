@@ -7,6 +7,7 @@ interface CustomInput {
   className?: string;
   autoComplete?: string;
   required?: boolean;
+  name?: string;
   onChange: (e: any) => void;
 }
 
@@ -16,6 +17,7 @@ export default function CustomInput({
   variant = "default",
   className,
   onChange,
+  name,
   autoComplete,
   required,
 }: CustomInput): React.JSX.Element {
@@ -33,6 +35,7 @@ export default function CustomInput({
           variants[variant as keyof typeof variants] ?? variants.default,
           className
         )}
+        name={name}
         onChange={onChange}
         autoComplete={autoComplete}
         required={required}
