@@ -10,8 +10,6 @@ export const authRouter = Router();
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET || "not_original_token";
 
-console.log(JWT_SECRET);
-
 authRouter.post("/auth", async (req, res) => {
   const result = authSchema.safeParse(req.body);
 
