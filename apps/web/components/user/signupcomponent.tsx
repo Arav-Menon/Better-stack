@@ -9,17 +9,20 @@ import CustomLink from "../ui/link";
 import Loading from "../loading";
 import CustomInput from "../ui/inputForAuth";
 import { GithubIcon, GoogleIcon } from "../svg";
+import { useRouter } from "next/navigation";
+import { signup } from "@/utils/api";
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    company: "",
-    agreeToTerms: false,
+    companyName: "",
+    phoneNumber: "",
   });
+  console.log(formData);
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +33,25 @@ export default function SignUpPage() {
     }));
   };
 
+  console.table(formData);
+  console.log(handleChange);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const token = await signup({
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      companyName: formData.companyName,
+      phoneNumber: formData.phoneNumber,
+    });
+
+    console.log(token);
+    localStorage.setItem("token", token);
+    router.push("/dashboard");
     setIsLoading(false);
   };
 
@@ -64,35 +81,21 @@ export default function SignUpPage() {
         {/* Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2">
               <div>
                 <label
-                  htmlFor="firstName"
+                  htmlFor="full name"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  First name
+                  Full name
                 </label>
                 <CustomInput
-                  type="text"
-                  required
-                  onChange={handleChange}
-                  variant="default"
-                  placeholder="John"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Last name
-                </label>
-                <CustomInput
+                  name="fullName"
                   type="text"
                   required
                   variant="default"
                   onChange={handleChange}
-                  placeholder="Doe"
+                  placeholder="jhone deo"
                 />
               </div>
             </div>
@@ -105,6 +108,7 @@ export default function SignUpPage() {
                 Email address
               </label>
               <CustomInput
+                name="email"
                 type="email"
                 autoComplete="email"
                 required
@@ -122,6 +126,7 @@ export default function SignUpPage() {
                 Company name
               </label>
               <CustomInput
+                name="companyName"
                 type="text"
                 autoComplete="company"
                 variant="default"
@@ -138,6 +143,7 @@ export default function SignUpPage() {
                 Password
               </label>
               <CustomInput
+                name="password"
                 type="password"
                 autoComplete="new-password"
                 required
@@ -155,12 +161,31 @@ export default function SignUpPage() {
                 Confirm password
               </label>
               <CustomInput
+                name="confirmPassword"
                 type="password"
                 autoComplete="new-password"
                 required
                 onChange={handleChange}
                 variant="primary"
                 placeholder="Confirm your password"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Phone number
+              </label>
+              <CustomInput
+                name="phoneNumber"
+                type="text"
+                autoComplete="Phone number"
+                required
+                onChange={handleChange}
+                variant="primary"
+                placeholder="Phone number"
               />
             </div>
           </div>
@@ -181,10 +206,7 @@ export default function SignUpPage() {
             </label>
           </div>
 
-          <Button
-            className="w-full"
-            disabled={isLoading || !formData.agreeToTerms}
-          >
+          <Button className="w-full">
             {isLoading ? <Loading /> : "Create account"}
           </Button>
 
