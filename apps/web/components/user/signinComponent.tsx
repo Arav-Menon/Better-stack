@@ -9,17 +9,35 @@ import CustomInput from "../ui/inputForAuth";
 import Loading from "../loading";
 import CustomLink from "../ui/link";
 import { GithubIcon, GoogleIcon } from "../svg";
+import { signin } from "@/utils/api";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  console.table(formData);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const handleChange = (e: any) => {
+    console.log("Change event:", e);
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const token = await signin({
+      email: formData.email,
+      password: formData.password,
+    });
+    localStorage.setItem("token", token);
+    router.push("/dashboard");
     setIsLoading(false);
   };
 
@@ -55,11 +73,12 @@ export default function SignInPage() {
                 Email address
               </label>
               <CustomInput
+                name="email"
                 type="email"
                 autoComplete="email"
                 variant="default"
                 required
-                onChange={(e: any) => setEmail(e.target.value)}
+                onChange={handleChange}
                 className="default"
                 placeholder="Enter your email"
               />
@@ -72,10 +91,11 @@ export default function SignInPage() {
                 Password
               </label>
               <CustomInput
+                name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                onChange={(e: any) => setPassword(e.target.value)}
+                onChange={handleChange}
                 variant="default"
                 placeholder="Enter your password"
               />
