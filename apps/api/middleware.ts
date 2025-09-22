@@ -3,8 +3,6 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "not_original_token";
 
-console.log(JWT_SECRET);
-
 export function authMiddleware(
   req: Request,
   res: Response,
