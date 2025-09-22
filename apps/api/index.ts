@@ -9,9 +9,15 @@ import "dotenv/config";
 import { update_site_router } from "./src/sites/edit_site";
 import { remove_site_router } from "./src/sites/remove_site";
 import { add_site_router } from "./src/sites/add_site";
+import cors from "cors";
 
 export const app = express();
 app.use(cookieParser());
+
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}))
 
 const PORT = process.env.LISTING_PORT;
 
