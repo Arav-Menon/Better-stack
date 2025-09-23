@@ -46,8 +46,6 @@ export function ProfileInformation() {
         },
       });
 
-      console.table(`Response Data`, JSON.stringify(response.data) as any);
-
       if (response.status == 200 && response.data) {
         setEditedProfile(response.data);
         setProfile(response.data);
@@ -55,6 +53,25 @@ export function ProfileInformation() {
     };
     getProfile();
   }, []);
+
+  useEffect(() => {
+    const updateProfile = async () => {
+      if (!isEditing) {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/user/profile`, {
+          headers: {
+            Authorization: token ? token : "",
+          },
+        });
+
+        if (response.status == 200 && response.data) {
+          setEditedProfile(response.data);
+          setProfile(response.data);
+        }
+      }
+    };
+    updateProfile();
+  })
 
   const handleEdit = () => {
     setEditedProfile(profile!);
