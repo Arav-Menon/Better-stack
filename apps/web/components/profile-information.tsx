@@ -1,9 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { Edit, Save, X, User, Mail, Phone, Building } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  Edit,
+  Save,
+  X,
+  User,
+  Mail,
+  Phone,
+  Building,
+  AwardIcon,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import axios from "axios";
+import { API_URL } from "@/utils/api";
 
 interface UserProfile {
   fullName: string;
@@ -16,18 +27,37 @@ interface UserProfile {
 
 export function ProfileInformation() {
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState<UserProfile>({
-    fullName: "John Doe",
-    email: "john.doe@company.com",
-    companyName: "Tech Solutions Inc",
-    phoneNumber: "+1 (555) 123-4567",
+  const [profile, setProfile] = useState<UserProfile>();
+  const [editedProfile, setEditedProfile] = useState<UserProfile>({
+    fullName: "",
+    email: "",
+    companyName: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
-  const [editedProfile, setEditedProfile] = useState<UserProfile>(profile);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/user/profile`, {
+        headers: {
+          Authorization: token ? token : "",
+        },
+      });
+
+      console.table(`Response Data`, JSON.stringify(response.data) as any);
+
+      if (response.status == 200 && response.data) {
+        setEditedProfile(response.data);
+        setProfile(response.data);
+      }
+    };
+    getProfile();
+  }, []);
 
   const handleEdit = () => {
-    setEditedProfile(profile);
+    setEditedProfile(profile!);
     setIsEditing(true);
   };
 
@@ -44,7 +74,7 @@ export function ProfileInformation() {
   };
 
   const handleCancel = () => {
-    setEditedProfile(profile);
+    setEditedProfile(profile!);
     setIsEditing(false);
   };
 
@@ -90,10 +120,7 @@ export function ProfileInformation() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}
           <div className="space-y-2">
-            <label
-              htmlFor="fullName"
-              className="flex items-center text-[#fff]"
-            >
+            <label htmlFor="fullName" className="flex items-center text-[#fff]">
               <User className="w-4 h-4 mr-2" />
               Full Name
             </label>
@@ -110,16 +137,13 @@ export function ProfileInformation() {
                 className="bg-input border-border"
               />
             ) : (
-              <p className="text-[#fff] py-2">{profile.fullName}</p>
+              <p className="text-[#fff] py-2">{profile?.fullName}</p>
             )}
           </div>
 
           {/* Email */}
           <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="flex items-center text-[#fff]"
-            >
+            <label htmlFor="email" className="flex items-center text-[#fff]">
               <Mail className="w-4 h-4 mr-2" />
               Email Address
             </label>
@@ -134,7 +158,7 @@ export function ProfileInformation() {
                 className="bg-input border-border"
               />
             ) : (
-              <p className="text-[#fff] py-2">{profile.email}</p>
+              <p className="text-[#fff] py-2">{profile?.email}</p>
             )}
           </div>
 
@@ -160,7 +184,7 @@ export function ProfileInformation() {
                 className="bg-input border-border"
               />
             ) : (
-              <p className="text-[#fff] py-2">{profile.companyName}</p>
+              <p className="text-[#fff] py-2">{profile?.companyName}</p>
             )}
           </div>
 
@@ -186,7 +210,7 @@ export function ProfileInformation() {
                 className="bg-input border-border"
               />
             ) : (
-              <p className="text-[#fff] py-2">{profile.phoneNumber}</p>
+              <p className="text-[#fff] py-2">{profile?.phoneNumber}</p>
             )}
           </div>
         </div>
