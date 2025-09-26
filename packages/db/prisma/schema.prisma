@@ -14,7 +14,7 @@ model User {
   password        String
   confirmPassword String
   companyName     String    @unique
-  phoneNumber     String?   
+  phoneNumber     String?
   image           String?
   createdAt       DateTime  @default(now())
   website         website[]
@@ -30,6 +30,7 @@ model website {
   id          String        @id @default(uuid())
   site_name   String        @unique
   url         String        @unique
+  description String
   time_added  DateTime      @default(now())
   user        User          @relation(fields: [user_id], references: [id])
   user_id     String
