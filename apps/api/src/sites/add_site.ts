@@ -16,7 +16,7 @@ add_site_router.post(
 
       if (!result.success) return res.status(400).json({ error: result.error });
 
-      const { site_name, url } = result.data;
+      const { site_name, url, description } = result.data;
       const existSite = await db.website.findUnique({ where: { id: url } });
 
       if (existSite) {
@@ -30,6 +30,7 @@ add_site_router.post(
           data: {
             site_name: site_name,
             url: url,
+            description: description,
             user: {
               connect: {
                 id: user_id,
